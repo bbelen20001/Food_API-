@@ -1,13 +1,14 @@
 const {Diet,Recipe} = require ("../db")
 
 const createRecip = async (body) => {
-    const {title,summary, healthScore,dietTypes} = body;
+    const {title,summary, healthScore,dietTypes,steps} = body;
   
     const newRecip = await Recipe.create({
       title: title,
       summary: summary,
       healthScore: healthScore,
       dietTypes: dietTypes,
+      steps: steps,
      // ingredients,
     });
     

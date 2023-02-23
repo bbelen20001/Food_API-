@@ -1,0 +1,22 @@
+.image {
+
+    min-width: 120px;
+    min-height: 120px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 21em;
+    left: 51em;
+    animation: image 1.5s alternate infinite ease-in-out;
+  }
+  
+  @keyframes image {
+    0% {
+      transform: rotate(-50deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: rotate(50deg);
+      opacity: 1;
+    }
+  }
+  

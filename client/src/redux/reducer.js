@@ -16,6 +16,7 @@ import {
 } from "./actions";
 
 const initialState = {
+  recipesFilters:[],
   recipes: [],
   recipesAll: [],
   diets: [],
@@ -55,7 +56,7 @@ const rootReducer = (state = initialState, actions) => {
             ...state,
         };
         case ORDER_AZ:
-            let resultAZ = state.recipe.sort(function (a, b) {
+            let resultAZ = state.recipes.sort(function (a, b) {
                 if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
                 if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
                 return 0;

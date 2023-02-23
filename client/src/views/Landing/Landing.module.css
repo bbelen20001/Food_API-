@@ -1,0 +1,77 @@
+.container {
+    background-image: url(../../image/food.png);
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: left;
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+  }
+  .logo {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .titulo {
+    background-color: green;
+    color: white;
+    position: absolute;
+    right: 20px;
+    width: 350px;
+    height: 50px;
+    border-radius: 20px;
+  
+    padding-bottom: 8px;
+    font-size: 50px;
+    font-family: Righteous;
+  }
+  .containeringreso {
+    position: absolute;
+    left: 30em;
+    top: 11em;
+  }
+  
+  .button {
+    background-color: rgb(218, 9, 78);
+    margin-bottom: 7em;
+    width: 10em;
+    height: 3em;
+    position: relative;
+    display: inline-block;
+    padding: 15px 30px;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 30px;
+    overflow: hidden;
+    transition: 0.5s;
+    border: none;
+    border-radius: 15px;
+  }
+  .button:hover {
+    background-color: rgb(195, 12, 12);
+    box-shadow: 0 0 10px rgb(200, 22, 34), 0 0 40px rgb(177, 14, 63),
+      0 0 80px rgb(197, 6, 102);
+  }
+  .button:active {
+    background-color: rgb(223, 40, 61);
+  }
+  
+  .containerText {
+    background-color: rgba(240, 245, 205, 0.926);
+    border-radius: 30px;
+    position: absolute;
+    bottom: 50px;
+    left: 80px;
+    width: 550px;
+    /* height: ; */
+  }
+  .texto {
+    color: rgb(18, 1, 1);
+    font-size: 70px;
+    font-family: Righteous;
+  }
+  .texto2 {
+    color: rgb(35, 175, 4);
+    font-size: 70px;
+  }
+  

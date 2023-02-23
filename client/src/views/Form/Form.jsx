@@ -2,7 +2,7 @@ import { useState } from "react";
 import style from "./Form.module.css";
 import Validate from "../../middleware/Validate"
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 
 
 const Form = ()=>{
@@ -48,29 +48,42 @@ const Form = ()=>{
     });
   };
     return(
-      
-      <form onSubmit={ submitHandler}>
-          <div className={style.containerForm}>
-      </div>
+      <div className={style.containerForm}>
+      <div>
      
-        <div className={style.contForm}>
+
+        <Link to="/home">
+          <div className={style.btnRetroceder}></div>
+        </Link>
+
+       
+      </div>
+      <div className={style.contForm}>
         <p className={style.titulo}>Crea tu propia receta!</p>
-  
-        </div>
-  
+        <form onSubmit={submitHandler} className={style.form}>
           <div className={style.info}>
-            <label className={style.label}>title</label>
-            </div>
-          <input type="text" value={form.title} onChange={changeHandler} name="title"/>
+            <label className={style.label}>Name</label>
+          <input 
+          
+          className={form.title ? style.great : style.failed}
+          type="text"
+           value={form.title} 
+           onChange={changeHandler} 
+           name="title">
+           </input>
           {errors.title && <span>{errors.title}</span>}
         <div>
-          
+        </div>
+
+      
         <div className={style.info}>
             <label className={style.label}>dietTypes </label>
-            </div>
-      
-          <input type="text" value= {form.dietTypes} onChange={changeHandler} name="dietTypes"/>
-
+          <textarea className={form.dietTypes? style.greatArea : style.failedArea}
+          type="text" 
+          value= {form.dietTypes} 
+          onChange={changeHandler} 
+          name="dietTypes"/>
+        </div>
         </div>
 
         <div className={style.info}>
@@ -100,6 +113,8 @@ const Form = ()=>{
           <button className={style.btnForm}>CREATE</button>
 
        </form>
+       </div>
+    </div>
     )
    }
   

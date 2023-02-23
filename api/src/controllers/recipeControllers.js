@@ -6,6 +6,7 @@ const { API_KEY } = process.env;
 
 // me trae toda la info de la API
 const getApiInfo = async () => {
+  
   const apiUrl = await axios.get(
     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
   );
@@ -21,6 +22,7 @@ const getApiInfo = async () => {
         dietTypes: e.diets,
         summary: e.summary,
         healthScore: e.healthScore,
+        steps: e.steps,
         ingredients: RecipesFilt(e.analyzedInstructions),
       };
     });

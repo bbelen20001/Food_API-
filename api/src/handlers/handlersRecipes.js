@@ -5,15 +5,15 @@ const {
 const { createRecip } = require ("../controllers/CreateRecipe");
 
 const searchRecipes = async (req, res) => {
+
   // para las queries
   //Obtener un listado de las recetas que contengan la palabra ingresada como query parameter
   //Si no existe ninguna receta mostrar un mensaje adecuado
   try {
     const title = req.query.title;
-
     const recipesTotal = await getAllRecipes();
     if (title) {
-      const recipesTitle = await recipesTotal.filter((element) =>
+      const recipesTitle =recipesTotal.filter((element) =>
         element.title.toLowerCase().includes(title.toLowerCase())
       );
       recipesTitle.length
