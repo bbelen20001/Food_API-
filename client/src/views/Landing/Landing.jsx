@@ -24,7 +24,7 @@ const Landing = () => {
         </p>
       </div>
       <div className={style.containeringreso}>
-        <Link to='/recipes'>
+        <Link to='/home'>
           <button className={style.button}>Empieza Ahora »</button>
         </Link>
       </div>

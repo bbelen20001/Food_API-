@@ -15,7 +15,7 @@ const Home = () => {
   const lastRecipes = currentPage * recipesPerPage;
   const firstRecipes = lastRecipes - recipesPerPage;
   const currentRecipes = allRecipes?.slice(firstRecipes, lastRecipes);
-
+console.log(currentPage)
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };

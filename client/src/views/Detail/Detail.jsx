@@ -24,7 +24,7 @@ const Detail = () => {
             <img src={detail.image} alt={detail.title} />
           </div>
           <div>
-            <h3>{detail.summary}</h3>
+          <div contentEditable='true' dangerouslySetInnerHTML={{ __html: detail.summary }}></div>
             <h3>{detail.healthScore}</h3>
             <h3>{detail.ingredients}</h3>
             <h3>
