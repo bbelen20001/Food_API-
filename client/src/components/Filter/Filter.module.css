@@ -1,11 +1,11 @@
 .containerFilter {
     margin-top: 2.5em;
-    /* display: grid; */
-    /* grid-template-columns: 1fr;
-    grid-template-rows: 50% 50%; */
+
+   
+  
     background-color: rgb(3, 146, 108);
     border-radius: 5px;
-    min-height: 145vh;
+    min-height: 14vh;
   }
   
   .containerDiets {

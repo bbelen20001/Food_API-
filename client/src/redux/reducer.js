@@ -3,6 +3,7 @@ import {
   GET_DIETS,
   GET_RECIPES_NAME,
   GET_RECIPE_ID,
+  GET_LOADING,
   CREATE_RECIPE,
   ORDER_AZ,
   ORDER_ZA,
@@ -10,7 +11,7 @@ import {
   ORDER_HEALTHSCORE_DESC,
   FILTER_DIETS,
   CLEAR,
-  LOADING,
+  //LOADING,
   GET_FILTER,
   ORDERED_RECIPES,
 } from "./actions";
@@ -20,8 +21,8 @@ const initialState = {
   recipes: [],
   recipesAll: [],
   diets: [],
-  recipeDetail: [],
-  loading: true,
+  recipeDetail: {},
+  loading: false,
   favorites: [],
 };
 
@@ -44,7 +45,7 @@ const rootReducer = (state = initialState, actions) => {
     case GET_RECIPE_ID:
       return {
         ...state,
-        recipe: actions.payload,
+        recipeDetail: actions.payload,
       };
     case GET_DIETS:
       return {
@@ -118,11 +119,12 @@ const rootReducer = (state = initialState, actions) => {
                 ...state,
                 recipeDetail: actions.payload,
             };
-            case LOADING:
-            return {
+            case GET_LOADING:
+              return {
                 ...state,
                 loading: actions.payload,
-            };
+              };
+        
             case GET_FILTER:
                 return {
                   ...state,

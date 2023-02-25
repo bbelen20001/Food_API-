@@ -1,0 +1,57 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 2em;
+  }
+  
+  .btnRetroceder {
+    position: absolute;
+    min-height: 64px;
+    min-width: 64px;
+    background-repeat: no-repeat;
+    left: 30px;
+  }
+  
+  .titulo {
+    color: rgba(9, 163, 79, 0.877);
+    font-family: Kavoon;
+  }
+  
+  .contImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image {
+    margin: 1em;
+    border-radius: 10px;
+    max-width: 40em;
+    max-height: 40em;
+  }
+  
+  .containerText {
+    display: flex;
+    flex-direction: column;
+    margin: 2em;
+    justify-content: flex-start;
+  }
+  
+  .parraLargo {
+    font-family: Itim;
+    font-size: 20px;
+  }
+  .parraCorto {
+    font-family: Itim;
+    font-size: 20px;
+  }
+  
+  .contDiets {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+  .dietas {
+    font-family: Itim;
+    font-size: 20px;
+    color: rgb(5, 174, 5);
+  }

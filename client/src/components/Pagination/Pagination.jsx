@@ -1,6 +1,6 @@
 import React from "react";
 //import { Link } from "react-router-dom";
-import styles from "./Pagination.module.css";
+import style from "./Pagination.module.css";
 
 export default function Pagination({
   recipesPerPage,
@@ -30,28 +30,30 @@ export default function Pagination({
   if (currentPage > totalPages) previousPage();
 
   return (
-    <div className={styles.container}>
-      <button className={styles.btnPrimaryPrevious} onClick={previousPage}>
-        Previous page
+    <div className={style.container}>
+      <button className={style.handler} onClick={previousPage}>
+      ⋘
       </button>
-      <ul className={styles.li}>
+      <ul className={style.li}>
         {pageNumber &&
           pageNumber.map((number) => (
-            <div key={number} className={styles.ul}>
+            <div key={number} className={style.ul}>
               <li>
-                <button onClick={() => paged(number)}>{number}</button >
+                <button
+                  className={number === currentPage ? style.good : style.bad}
+                 onClick={() => paged(number)}>{number}</button >
               </li>
             </div>
           ))}
       </ul>
-      <button className={styles.btnPrimaryNext} onClick={nextPage}>
-        Next page
+      <button className={style.handler} onClick={nextPage}>
+      ⋙
       </button>
-      <div className={styles.h4}>
+  
         <h4>
           {currentPage} / {totalPages}
         </h4>
       </div>
-    </div>
+
   );
 }

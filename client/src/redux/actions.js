@@ -16,7 +16,7 @@ export const CLEAR = "CLEAR";
 export const LOADING = "LOADING";
 export const GET_FILTER = "GET_FILTER";
 export const ORDERED_RECIPES = "ORDERED_RECIPES";
-
+export const GET_LOADING = "GET_LOADING";
 const URL = "http://localhost:3001";
 //Promises:
 
@@ -31,20 +31,27 @@ export const getRecipes = () => {
 
 export const getRecipesName = (name) => {
   return async function (dispatch) {
-    const apiData = await axios.get(`${URL}/recipes?name=`);
-    dispatch({ type: GET_RECIPES_NAME, payload: apiData.data });
+    const apiData = await axios.get(`${URL}/recipes?title=`+ name)
+    console.log(apiData)
+    dispatch({ type: GET_RECIPES, payload: apiData.data });
   };
 };
 
 export const getRecipeId = (id) => {
   return async function (dispatch) {
-    const data = await axios.get(`${URL}/recipes/${id}`);
-    dispatch({ type: GET_RECIPE_ID, payload: data.data });
+    try {
+      const response = await axios.get(`${URL}/recipes/getone/${id}`);
+      const data = response.data;
+      dispatch({ type: GET_RECIPE_ID, payload: data });
+    } catch (error) {
+      console.log(error);
+      // handle error here
+    }
   };
 };
 export const createRecip = (value) => {
   return async function (dispatch) {
-    const data = await axios.post(`${URL}/recipes`, value);
+    const data = await axios.post(`${URL}/recipes/createRecipe`, value);
     dispatch({ type: CREATE_RECIPE, payload: data.data });
   };
 };
@@ -96,6 +103,10 @@ export function clearDetail(payload) {
     payload,
   };
 }
+export const getLoading = (solicitud) => {
+  return { type: GET_LOADING, payload: solicitud };
+};
+
 export function loadingAction(payload) {
   return (dispatch) => {
     dispatch({

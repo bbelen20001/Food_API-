@@ -29,12 +29,12 @@ const Form = ()=>{
   
 
   const submitHandler =(event)=>{
-    event.preventDefault()
     event.preventDefault();
+    console.log(form)
     if (!form.name) delete form.name;
     if (!form.description) delete form.description;
     axios
-      .post("/recipes", form)
+      .post(`http://localhost:3001/recipes/createRecipe`, form)
       .then((res) => alert(res.data))
       .catch((err) => alert(err.response.data.error));
     //clean form

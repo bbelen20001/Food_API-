@@ -49,15 +49,15 @@ const Filter = () => {
         <button className={style.diets} onClick={handlerDiets} value="all">
           All Recipes
         </button>
-        {dietas.map((diet) => {
+        {dietas?.map((element) => {
           return (
             <button
-              key={diet.id}
+              key={element.id}
               className={style.diets}
               onClick={handlerDiets}
-              value={diet.name}
+              value={element.name}
             >
-              {diet.name.charAt(0).toUpperCase() + diet.name.slice(1)}
+              {element.name.charAt(0).toUpperCase() + element.name.slice(1)}
             </button>
           );
         })}
