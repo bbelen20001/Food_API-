@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../redux/actions";
 import Pagination from "../../components/Pagination/Pagination";
-import {Link} from "react-router-dom"
+
 import style from "./Home.module.css";
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
   const lastRecipes = currentPage * recipesPerPage;
   const firstRecipes = lastRecipes - recipesPerPage;
   const currentRecipes = allRecipes?.slice(firstRecipes, lastRecipes);
-console.log(currentPage)
+
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -36,13 +36,11 @@ console.log(currentPage)
         />
       </div>
       <div>
-        {currentRecipes?.map((element) => {
-          return (
-            <Link to={`home/${element.id}`} key={element.id}>
+      
+   
               <CardsContainer currentRecipes={currentRecipes} />
-            </Link>
-          );
-        })}
+    
+      
       </div>
     </div>
   );

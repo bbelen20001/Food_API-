@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+
 import style from "./NavBar.module.css";
 import { useDispatch } from "react-redux";
 import SearchBar from "../search/search";
@@ -11,25 +11,32 @@ const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const [value, setValue] = useState({
-    input: "",
-    output: "",
-  });
+
    const getRecipesAll = ()=>{
      dispatch(getRecipes());  
    }
    
   return (
+    <nav className={style.container}>
+    <h1 className={style.title1}>
+      Henry<span className={style.title2}>FOOD</span>
+    </h1>
+
     <>
-      <div className={style.mainContainer}>
-        <Link to="/home">Home</Link>
-        <Link to="/create">Form</Link>
+      <div className={style.menus}>
+      <Link to="/home" className={style.opciones}>
+          <h3 className={style.opciones}>Home</h3>
+        </Link>
+        <Link to="/create" className={style.opciones}>
+          <h3>Create</h3>
+        </Link>
       </div>
       <div>{location.pathname === "/home" && (
           <SearchBar className={style.searchBar} />
         )}</div>
-        <button onClick={getRecipesAll}>todas las recetas</button>
+        <button onClick={getRecipesAll}>all recipes</button>
     </>
+    </nav>
   );
 };
 

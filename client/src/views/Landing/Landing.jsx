@@ -18,14 +18,14 @@ const Landing = () => {
       <h1 className={style.titulo}>Henry | FOOD</h1>
       <div className={style.containerText}>
         <p className={style.texto}>
-          Conoce y disfruta de miles de recetas a solo un
+        Discover and enjoy the best recipes with just one
           <span className={style.texto2}> ¡click! </span>
           <span className={style.texto2}> Henry Food</span>
         </p>
       </div>
       <div className={style.containeringreso}>
         <Link to='/home'>
-          <button className={style.button}>Empieza Ahora »</button>
+          <button className={style.button}>Start now»</button>
         </Link>
       </div>
     </div>
