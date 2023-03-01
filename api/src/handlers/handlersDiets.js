@@ -10,7 +10,8 @@ const getAllDiets = async (req, res) => {
 
    const allTheTypes = await Diet.findAll();
   res.send(allTheTypes.map(e => e.name))
-}
+};
+
 
 module.exports = {
   getAllDiets,

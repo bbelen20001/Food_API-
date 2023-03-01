@@ -94,6 +94,15 @@ const getAllRecipes = async () => {
   
 };
 
+const getRecipesByDiet = async (dietName)=>{
+  const allRecipes = await getAllRecipes ();
+  const filteredRecipes = allRecipes.filter((element)=>{
+    return element.dietTypes?.includes(dietName) 
+  })
+
+  return filteredRecipes
+}
+
 
 
 module.exports = {
@@ -101,6 +110,7 @@ module.exports = {
   getDbInfo,
   getAllRecipes,
   getOneHandler,
+  getRecipesByDiet
 };
 
 

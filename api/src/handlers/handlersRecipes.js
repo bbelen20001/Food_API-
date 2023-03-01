@@ -1,6 +1,7 @@
 const {
   getAllRecipes,
   getOneHandler,
+  getRecipesByDiet,
 } = require("../controllers/recipeControllers.js");
 const { createRecip } = require ("../controllers/CreateRecipe");
 
@@ -26,24 +27,7 @@ const searchRecipes = async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 };
-//---------------------------------
-// const recipeId = async (req, res) => {
-//   //Para el detalle por id
 
-//   try {
-//     const id = req.params.id
-//    const source = await getAllRecipes ();
-//     const recipe = source.find (element=> element.id == id );
-//     if(recipe){
-//       res.status(200).json(recipe);
-//     }else{
-//       res.status(404).json({ error:"Recipe not found"});
-//     }
-    
-//   } catch (error) {
-//     res.status(404).json({ error: error.message });
-//     }
-//   };
 
   const createRecipes = async (req,res)=>{
     try{
@@ -63,34 +47,21 @@ const searchRecipes = async (req, res) => {
   }
  }
  
+ const  filterByDiets = async (req, res)=>{
+  try{
+   const dietName = req.query.dietName
+   const filterDiet = await  getRecipesByDiet (dietName);
+   res.status(200).json(filterDiet);
+ }catch(error){
+   res.status(404).json({ error: error.message });
+  }
 
-
-// constc = async (req, res) => {
-//   const {
-//     title,
-//     summary,
-//     healthScore,
-//     analyzedInstructions,
-//     diets,
-//   } = req.body;
-
-//   try {
-//     const newRecipe = await createRecip(
-//       title,
-//       summary,
-//       healthScore,
-//       analyzedInstructions,
-//       diets,
-//     );
-//     res.status(201).send("Creado con exito!");
-//   } catch (error) {
-//     // if (!name) return res.status(400).send("Missing name");
-//     res.status(400).json({ error: error.message });
-//   }
-// };
+  }
+ 
 
 module.exports = {
   searchRecipes,
   createRecipes,
-  searchOne
+  searchOne,
+  filterByDiets
 };
