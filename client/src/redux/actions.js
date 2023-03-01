@@ -59,11 +59,19 @@ export const createRecip = (value) => {
 //Filtros y ordanamiento
 
 export const filterRecipes = (data) => {
-  return { type: GET_FILTER, payload: data };
+  return async function (dispatch) {
+    const  Apidata = await axios.get(`${URL}/recipes`, data);
+    dispatch( { type: GET_FILTER, payload: Apidata.data });
+  }
+ 
 };
 
 export const recipesOrder = () => {
-  return { type: ORDERED_RECIPES };
+  return async function (dispatch) {
+    const  data = await axios.get(`${URL}/recipes`);
+    dispatch ({ type: GET_FILTER, payload: data });
+  }
+ 
 };
 
 export function orderByAZ() {

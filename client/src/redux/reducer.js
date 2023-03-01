@@ -17,7 +17,7 @@ import {
 } from "./actions";
 
 const initialState = {
-  recipesFilters:[],
+  recipesFilters: [],
   recipes: [],
   recipesAll: [],
   diets: [],
@@ -52,89 +52,90 @@ const rootReducer = (state = initialState, actions) => {
         ...state,
         diets: actions.payload,
       };
-      case CREATE_RECIPE:
+    case CREATE_RECIPE:
+      return {
+        ...state,
+      };
+    case ORDER_AZ:
+      let resultAZ = state.recipes.sort(function (a, b) {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        return 0;
+      });
+      return {
+        ...state,
+        recipe: resultAZ,
+      };
+    case ORDER_ZA:
+      let resultZA = state.recipe.sort(function (a, b) {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+        if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+        return 0;
+      });
+      return {
+        ...state,
+        recipe: resultZA,
+      };
+
+    case ORDER_HEALTHSCORE_ASC:
+      let resultAsc = state.recipe.sort(function (a, b) {
+        if (a.healthScore > b.healthScore) return 1;
+        if (a.healthScore < b.healthScore) return -1;
+        return 0;
+      });
+      return {
+        ...state,
+        recipe: resultAsc,
+      };
+    case ORDER_HEALTHSCORE_DESC:
+      let resultDesc = state.recipe.sort(function (a, b) {
+        if (a.healthScore > b.healthScore) return -1;
+        if (a.healthScore < b.healthScore) return 1;
+        return 0;
+      });
+      return {
+        ...state,
+        recipe: resultDesc,
+      };
+    case FILTER_DIETS:
+      const filterDiets = [...state.recipesAll]
+      if (actions.payload === "all") {
         return {
-            ...state,
+          ...state,
+          recipe: filterDiets,
         };
-        case ORDER_AZ:
-            let resultAZ = state.recipes.sort(function (a, b) {
-                if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-                if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-                return 0;
-            });
-            return {
-                ...state,
-                recipe: resultAZ,
-            };
-        case ORDER_ZA:
-            let resultZA = state.recipe.sort(function (a, b) {
-                if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
-                if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
-                return 0;
-            });
-            return {
-                ...state,
-                recipe: resultZA,
-            };
+      } else {
+        const dietSelector = actions.payload
+        const ff = filterDiets.filter((element) => {
+          return element.dietTypes?.includes( dietSelector)
+        } 
+        );
+        return {
+          ...state,
+          recipe: ff,
+        };
+      }
+    case CLEAR:
+      return {
+        ...state,
+        recipeDetail: actions.payload,
+      };
+    case GET_LOADING:
+      return {
+        ...state,
+        loading: actions.payload,
+      };
 
-        case ORDER_HEALTHSCORE_ASC:
-            let resultAsc = state.recipe.sort(function (a, b) {
-                if (a.healthScore > b.healthScore) return 1;
-                if (a.healthScore < b.healthScore) return -1;
-                return 0;
-            });
-            return {
-                ...state,
-                recipe: resultAsc,
-            };
-        case ORDER_HEALTHSCORE_DESC:
-            let resultDesc = state.recipe.sort(function (a, b) {
-                if (a.healthScore > b.healthScore) return -1;
-                if (a.healthScore < b.healthScore) return 1;
-                return 0;
-
-            });
-            return {
-                ...state,
-                recipe: resultDesc,
-            };
-        case FILTER_DIETS:
-
-            const filter = state.recipesAll;
-            if (actions.payload === "all") {
-                return {
-                    ...state,
-                    recipe: filter,
-                }
-            } else {
-                //console.log(filter,"filter");
-                const ff = filter.filter(r => r.diets?.some((d) => d?.toLowerCase() === actions.payload.toLowerCase()))
-                return {
-                    ...state,
-                    recipe: ff,
-                }
-            };
-            case CLEAR:
-            return {
-                ...state,
-                recipeDetail: actions.payload,
-            };
-            case GET_LOADING:
-              return {
-                ...state,
-                loading: actions.payload,
-              };
-        
-            case GET_FILTER:
-                return {
-                  ...state,
-                  recipesFilters: actions.payload,
-                };
-              case ORDERED_RECIPES:
-                return {
-                  ...state,
-                  ordered: !state.ordered,
-                };
+    case GET_FILTER:
+      return {
+        ...state,
+        recipesFilters: actions.payload,
+      };
+    case ORDERED_RECIPES:
+      return {
+        ...state,
+        ordered: !state.ordered,
+      };
     default:
       return { ...state };
   }

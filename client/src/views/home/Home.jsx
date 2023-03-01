@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRecipes } from "../../redux/actions";
 import Pagination from "../../components/Pagination/Pagination";
-
+import Filter from "../../components/Filter/Filter";
 import style from "./Home.module.css";
 
 const Home = () => {
@@ -26,6 +26,9 @@ const Home = () => {
 
   return (
     <div>
+      <div>
+    <Filter/>
+      </div>
       <div className={style.containerRecipes}>
         <Pagination
           recipesPerPage={recipesPerPage}

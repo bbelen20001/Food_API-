@@ -1,80 +1,134 @@
-import { useSelector } from "react-redux";
-import style from "./Filter.module.css";
-import { useDispatch } from "react-redux";
-import { filterRecipes } from "../../redux/actions";
-import { recipesOrder } from "../../redux/actions";
+import React, { useEffect, useState } from "react";
+import styles from "./Filter.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getRecipes,
+    orderByAZ,
+    filterDiets,
+    createRecip,
+  clearDetail,
+} from "../../redux/actions";
 
-const Filter = () => {
+const Filters = () => {
   const dispatch = useDispatch();
-  const dietas = useSelector((state) => state.diets);
-  const allRecipes = useSelector((state) => state.recipes);
+  const diets = useSelector((state) => state.diets);
+  const [showFilterBar, setShowFilterBar] = useState(true);
+  const [selectCreator, setSelectCreator] = useState("");
+  const [selectOrder, setSelectOrder] = useState("");
 
-  const handlerDiets = (event) => {
-    const diet = event.target.value;
-    const resultado = [];
-    let find = "";
-    //todas la recetas
-    if (event.target.value === "all") {
-      dispatch(filterRecipes(allRecipes));
+  useEffect(() => {
+    dispatch(getRecipes());
+  }, [dispatch]);
+
+  const order = (element) => {
+    setSelectOrder(element.target.value);
+    if (element.target.value === "Alph" || element.target.value === "Title")
       return;
-    }
-
-    //Filtrar por value
-
-    for (let index of allRecipes) {
-      if (index.Diets) {
-        find = index.Diets?.find((element) => element.name === diet);
-        find && resultado.push(index);
-        find = "";
-      }
-      if (index.diets) {
-        find = index.diets?.find((element) => element === diet);
-
-        find && resultado.push(index);
-        find = "";
-      }
-    }
-
-    dispatch(filterRecipes(resultado));
+    dispatch(orderByAZ(element.target.value));
   };
 
-  const handlerSelect = () => {
-    dispatch(recipesOrder());
+  const filterByDiets = (element) => {
+    console.log(element.target.value)
+    if (element.target.value === "dietTypes") return dispatch(clearDetail());
+    dispatch(filterDiets(element.target.value));
   };
 
-  return (
-    <div className={style.containerFilter}>
-      <div className={style.containerDiets}>
-        <h1 className={style.labelDiets}>SELECT TYPES OF DIETS</h1>
-        <button className={style.diets} onClick={handlerDiets} value="all">
-          All Recipes
-        </button>
-        {dietas?.map((element) => {
-          return (
-            <button
-              key={element.id}
-              className={style.diets}
-              onClick={handlerDiets}
-              value={element.name}
+  const filterCreator = (element) => {
+    setSelectCreator(element.target.value);
+    if (element.target.value === "all") return dispatch(clearDetail());
+    dispatch(createRecip(element.target.value));
+    if (element.target.value === "false") dispatch(createRecip(element.target.value));
+    if (element.target.value === "true") dispatch(createRecip(element.target.value));
+  };
+
+  const clearAllFilters = () => {
+    setSelectCreator("");
+    setSelectOrder("");
+    dispatch(clearDetail());
+  };
+
+  if (!showFilterBar) {
+    return (
+      <div>
+        <span className="span" onClick={() => setShowFilterBar(true)}></span>
+      </div>
+    );
+  } else {
+    return (
+      <div className={styles.firstContainer}>
+        <div className={styles.filterscontainer}>
+          <h4 className={styles.label}>Filter by</h4>
+          <div className={styles.divs}>
+            <select
+              className={styles.input}
+              onChange={filterByDiets}
+            
             >
-              {element.name.charAt(0).toUpperCase() + element.name.slice(1)}
+              <option value="dietTypes">Diets</option>
+              {diets &&
+                 diets
+                  .map((dataDiets) => {
+                    return (
+                      <option value={dataDiets} key={dataDiets}>
+                        {dataDiets}
+                      </option>
+                    );
+                  })}
+            </select>
+          </div>
+          <div className={styles.divs}>
+            <select
+              onChange={filterCreator}
+              value={selectCreator}
+              className={styles.input2}
+            >
+              <option value="">Source</option>
+              <option value="all">All</option>
+              <option value="false">Existing</option>
+              <option value="true">Created</option>
+            </select>
+          </div>
+
+          <h4 className={styles.label}>Order by</h4>
+          <div className={styles.divs}>
+            <select
+              onChange={order}
+              value={selectOrder}
+              className={styles.input}
+            >
+              <option value="Alph">Alphabetical</option>
+              <option value="asc">Ascending (A-Z)</option>
+              <option value="desc">Descending (Z-A)</option>
+            </select>
+          </div>
+          <div className={styles.divs}>
+            <select
+              onChange={order}
+              value={selectOrder}
+              className={styles.input2}
+            >
+              <option value="healthScore">Health Score</option>
+              <option value="less">Less (-)</option>
+              <option value="more">More (+)</option>
+            </select>
+          </div>
+
+          <div className={styles.divs}>
+            <button
+              onClick={clearAllFilters}
+              className={styles.btnPrimaryClearFilters}
+            >
+              Clear filters
             </button>
-          );
-        })}
+          </div>
+        </div>
+        <div>
+          <span onClick={() => setShowFilterBar(true)}></span>
+        </div>
       </div>
-      <div className={style.contSearch}>
-        <h3 className={style.labelOrder}>Select Ordering</h3>
-        <select className={style.items} onChange={handlerSelect}>
-          <option className={style.item} value={true}>
-            Falling
-          </option>
-          <option className={style.item} value={false}>
-            Upward
-          </option>
-        </select>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
-export default Filter;
+export default Filters;
+

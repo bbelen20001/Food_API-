@@ -24,6 +24,7 @@ const getApiInfo = async () => {
         healthScore: e.healthScore,
         steps: e.steps,
         ingredients: RecipesFilt(e.analyzedInstructions),
+       createdInDb: false,
       };
     });
     return apiInfo;
