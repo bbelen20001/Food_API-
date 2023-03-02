@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     getRecipes,
     orderByAZ,
-    filterDiets,
-    createRecip,
+    filterDiet,
   clearDetail,
+  filterByCreator
+  
 } from "../../redux/actions";
 
 const Filters = () => {
@@ -28,17 +29,15 @@ const Filters = () => {
   };
 
   const filterByDiets = (element) => {
-    console.log(element.target.value)
     if (element.target.value === "dietTypes") return dispatch(clearDetail());
-    dispatch(filterDiets(element.target.value));
+    dispatch(filterDiet(element.target.value));
   };
 
   const filterCreator = (element) => {
     setSelectCreator(element.target.value);
-    if (element.target.value === "all") return dispatch(clearDetail());
-    dispatch(createRecip(element.target.value));
-    if (element.target.value === "false") dispatch(createRecip(element.target.value));
-    if (element.target.value === "true") dispatch(createRecip(element.target.value));
+    if (element.target.value === "all") dispatch(getRecipes(element.target.value));
+    if (element.target.value === "false") dispatch(filterByCreator(element.target.value));
+    if (element.target.value === "true") dispatch(filterByCreator(element.target.value));
   };
 
   const clearAllFilters = () => {
@@ -62,7 +61,6 @@ const Filters = () => {
             <select
               className={styles.input}
               onChange={filterByDiets}
-            
             >
               <option value="dietTypes">Diets</option>
               {diets &&
@@ -88,7 +86,6 @@ const Filters = () => {
               <option value="true">Created</option>
             </select>
           </div>
-
           <h4 className={styles.label}>Order by</h4>
           <div className={styles.divs}>
             <select

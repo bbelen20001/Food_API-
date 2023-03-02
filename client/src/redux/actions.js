@@ -17,6 +17,9 @@ export const LOADING = "LOADING";
 export const GET_FILTER = "GET_FILTER";
 export const ORDERED_RECIPES = "ORDERED_RECIPES";
 export const GET_LOADING = "GET_LOADING";
+export const  GET_FILTERDIET=  "GET_FILTERDIET";
+export const GET_DIETFILTER="GET_DIETFILTER"
+export const FILTER_BY_CREATOR="FILTER_BY_CREATOR"
 const URL = "http://localhost:3001";
 //Promises:
 
@@ -52,11 +55,26 @@ export const getRecipeId = (id) => {
 export const createRecip = (value) => {
   return async function (dispatch) {
     const data = await axios.post(`${URL}/recipes/createRecipe`, value);
-    dispatch({ type: CREATE_RECIPE, payload: data.data });
+    dispatch({ type: CREATE_RECIPE, payload: data});
   };
 };
 
 //Filtros y ordanamiento
+export function filterByCreator(payload) {
+  console.log(payload)
+  return {
+    type: FILTER_BY_CREATOR,
+    payload: payload,
+  };
+}
+// export const filterAll = (payload) => {
+
+//   return  async function(dispatch)  {
+//     const apiData = await axios.get(`${URL}/recipes`);
+//   }
+    
+   
+  
 
 export const filterRecipes = (data) => {
   return async function (dispatch) {
@@ -66,10 +84,18 @@ export const filterRecipes = (data) => {
  
 };
 
+export const filterDiet = (diets) => {
+  return async function (dispatch) {
+    const  Apidata = await axios.get(`${URL}/recipes/filter?dietName=${diets}`);
+    dispatch( { type: GET_FILTERDIET, payload: Apidata.data });
+  }
+ 
+};
+
 export const recipesOrder = () => {
   return async function (dispatch) {
     const  data = await axios.get(`${URL}/recipes`);
-    dispatch ({ type: GET_FILTER, payload: data });
+    dispatch ({ type: GET_DIETFILTER, payload: data });
   }
  
 };
@@ -105,10 +131,9 @@ export function filterDiets(payload) {
     payload,
   };
 }
-export function clearDetail(payload) {
+export function clearDetail() {
   return {
     type: CLEAR,
-    payload,
   };
 }
 export const getLoading = (solicitud) => {

@@ -9,11 +9,13 @@ import {
   ORDER_ZA,
   ORDER_HEALTHSCORE_ASC,
   ORDER_HEALTHSCORE_DESC,
-  FILTER_DIETS,
   CLEAR,
+  GET_DIETFILTER,
+  GET_FILTERDIET,
   //LOADING,
   GET_FILTER,
   ORDERED_RECIPES,
+  FILTER_BY_CREATOR,
 } from "./actions";
 
 const initialState = {
@@ -35,6 +37,29 @@ const rootReducer = (state = initialState, actions) => {
         recipesAll: actions.payload,
         diets: actions.data,
       };
+
+      case FILTER_BY_CREATOR:
+      if(actions.payload=== "All"){
+        return {
+          ...state,
+          recipes: state.recipesAll
+        }
+      }
+      const filteredCreator = state.recipesAll.filter((p) => {
+        return p.createdInDb?.toString() === actions.payload;
+      });
+      console.log(filteredCreator)
+      if (filteredCreator.length) {
+        return {
+          ...state,
+          recipes: filteredCreator,
+        };
+      } else {
+        return {
+          ...state,
+          recipes: [],
+        };
+      }
 
     case GET_RECIPES_NAME:
       const receta = actions.payload;
@@ -67,7 +92,7 @@ const rootReducer = (state = initialState, actions) => {
         recipe: resultAZ,
       };
     case ORDER_ZA:
-      let resultZA = state.recipe.sort(function (a, b) {
+      let resultZA = state.recipes.sort(function (a, b) {
         if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
         if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
         return 0;
@@ -78,7 +103,7 @@ const rootReducer = (state = initialState, actions) => {
       };
 
     case ORDER_HEALTHSCORE_ASC:
-      let resultAsc = state.recipe.sort(function (a, b) {
+      let resultAsc = state.recipes.sort(function (a, b) {
         if (a.healthScore > b.healthScore) return 1;
         if (a.healthScore < b.healthScore) return -1;
         return 0;
@@ -97,29 +122,45 @@ const rootReducer = (state = initialState, actions) => {
         ...state,
         recipe: resultDesc,
       };
-    case FILTER_DIETS:
-      const filterDiets = [...state.recipesAll]
+
+
+case  GET_DIETFILTER:
+  const allfilter = [...state.recipesAll]
       if (actions.payload === "all") {
         return {
           ...state,
-          recipe: filterDiets,
+          recipe:allfilter,
         };
       } else {
         const dietSelector = actions.payload
-        const ff = filterDiets.filter((element) => {
+        const ff = allfilter.filter((element) => {
           return element.dietTypes?.includes( dietSelector)
-        } 
-        );
+
+     } 
+    );
         return {
           ...state,
           recipe: ff,
         };
+
       }
+    case   GET_FILTERDIET:
+      console.log(actions.payload)
+   
+      return {
+        ...state,
+         recipes: actions.payload,
+        recipesAll: actions.payload,
+        diets: actions.data,
+      };
+   
+      
     case CLEAR:
       return {
         ...state,
         recipeDetail: actions.payload,
       };
+      
     case GET_LOADING:
       return {
         ...state,
