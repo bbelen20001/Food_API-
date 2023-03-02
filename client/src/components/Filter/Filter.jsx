@@ -48,12 +48,12 @@ const Filters = () => {
     );
   } else {
     return (
-      <div className={styles.firstContainer}>
-        <div className={styles.filterscontainer}>
-          <h4 className={styles.label}>Filter by</h4>
+      <div className={styles.containerFilter}>
+        <div className={styles.containerDiets}>
+          <h4 className={styles.labelDiets}>Filter by</h4>
           <div className={styles.divs}>
             <select
-              className={styles.input}
+              className={styles.items}
               onChange={filterByDiets}
             >
               <option value="dietTypes">Diets</option>
@@ -68,11 +68,10 @@ const Filters = () => {
                   })}
             </select>
           </div>
-          <div className={styles.divs}>
             <select
               onChange={filterCreator}
               value={selectCreator}
-              className={styles.input2}
+              className={styles.items}
             >
               <option value="">Source</option>
               <option value="all">All</option>
@@ -80,23 +79,23 @@ const Filters = () => {
               <option value="true">Created</option>
             </select>
           </div>
-          <h4 className={styles.label}>Order by</h4>
-          <div className={styles.divs}>
+          <h4 className={styles.labelDiets}>Order by</h4>
+          <div className={styles.items}>
             <select
               onChange={(e)=>dispatch(getOrder(e.target.value))}
               value={selectOrder}
-              className={styles.input}
+              className={styles.items}
             >
               <option value="Alph">Alphabetical</option>
               <option value="asc">Ascending (A-Z)</option>
               <option value="desc">Descending (Z-A)</option>
             </select>
           </div>
-          <div className={styles.divs}>
+          <div className={styles.items}>
             <select
               onChange={(e)=>dispatch(getByOrder(e.target.value))}
               value={selectOrder}
-              className={styles.input2}
+              className={styles.items}
             >
               <option value="healthScore">Health Score</option>
               <option value="less">More (+)</option>
@@ -112,7 +111,6 @@ const Filters = () => {
               Clear filters
             </button>
           </div>
-        </div>
         <div>
           <span onClick={() => setShowFilterBar(true)}></span>
         </div>
