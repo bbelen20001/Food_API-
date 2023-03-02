@@ -3,12 +3,11 @@ import styles from "./Filter.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getRecipes,
-    orderByAZ,
     filterDiet,
   clearDetail,
   filterByCreator,
   getOrder,
-  
+  getByOrder,
 } from "../../redux/actions";
 
 const Filters = () => {
@@ -22,12 +21,6 @@ const Filters = () => {
     dispatch(getRecipes());
   }, [dispatch]);
 
-  const order = (element) => {
-    setSelectOrder(element.target.value);
-    if (element.target.value === "Alph" || element.target.value === "Title")
-      return;
-    dispatch(orderByAZ(element.target.value));
-  };
 
   const filterByDiets = (element) => {
     if (element.target.value === "dietTypes") return dispatch(clearDetail());
@@ -101,13 +94,13 @@ const Filters = () => {
           </div>
           <div className={styles.divs}>
             <select
-              onChange={order}
+              onChange={(e)=>dispatch(getByOrder(e.target.value))}
               value={selectOrder}
               className={styles.input2}
             >
               <option value="healthScore">Health Score</option>
-              <option value="less">Less (-)</option>
-              <option value="more">More (+)</option>
+              <option value="less">More (+)</option>
+              <option value="more">less (-)</option>
             </select>
           </div>
 

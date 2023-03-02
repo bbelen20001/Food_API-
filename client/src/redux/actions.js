@@ -17,10 +17,10 @@ export const LOADING = "LOADING";
 export const GET_FILTER = "GET_FILTER";
 export const ORDERED_RECIPES = "ORDERED_RECIPES";
 export const GET_LOADING = "GET_LOADING";
-export const  GET_FILTERDIET=  "GET_FILTERDIET";
-export const GET_DIETFILTER="GET_DIETFILTER"
-export const FILTER_BY_CREATOR="FILTER_BY_CREATOR"
-export const GET_RECIPE_NAMES= "GET_RECIPE_NAMES";
+export const GET_FILTERDIET = "GET_FILTERDIET";
+export const GET_DIETFILTER = "GET_DIETFILTER";
+export const FILTER_BY_CREATOR = "FILTER_BY_CREATOR";
+export const GET_RECIPE_NAMES = "GET_RECIPE_NAMES";
 const URL = "http://localhost:3001";
 //Promises:
 
@@ -35,8 +35,8 @@ export const getRecipes = () => {
 
 export const getRecipesName = (name) => {
   return async function (dispatch) {
-    const apiData = await axios.get(`${URL}/recipes?title=`+ name)
-    console.log(apiData)
+    const apiData = await axios.get(`${URL}/recipes?title=` + name);
+    console.log(apiData);
     dispatch({ type: GET_RECIPES, payload: apiData.data });
   };
 };
@@ -54,27 +54,26 @@ export const getRecipeId = (id) => {
 };
 
 export const getOrder = (name) => {
-  console.log(name)
+  console.log(name);
   return async function (dispatch) {
     try {
       const response = await axios.get(`${URL}/recipes/${name}`);
       const data = response.data;
-      console.log(data)
+      console.log(data);
       dispatch({ type: GET_RECIPE_NAMES, payload: data });
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 };
 export const createRecip = (value) => {
   return async function (dispatch) {
     const data = await axios.post(`${URL}/recipes/createRecipe`, value);
-    dispatch({ type: CREATE_RECIPE, payload: data});
+    dispatch({ type: CREATE_RECIPE, payload: data });
   };
 };
 
 //Filtros y ordanamiento
 export function filterByCreator(payload) {
-  console.log(payload)
+  console.log(payload);
   return {
     type: FILTER_BY_CREATOR,
     payload: payload,
@@ -85,57 +84,41 @@ export function filterByCreator(payload) {
 //   return  async function(dispatch)  {
 //     const apiData = await axios.get(`${URL}/recipes`);
 //   }
-    
-   
-  
 
 export const filterRecipes = (data) => {
   return async function (dispatch) {
-    const  Apidata = await axios.get(`${URL}/recipes`, data);
-    dispatch( { type: GET_FILTER, payload: Apidata.data });
-  }
- 
+    const Apidata = await axios.get(`${URL}/recipes`, data);
+    dispatch({ type: GET_FILTER, payload: Apidata.data });
+  };
 };
 
 export const filterDiet = (diets) => {
   return async function (dispatch) {
-    const  Apidata = await axios.get(`${URL}/recipes/filter?dietName=${diets}`);
-    dispatch( { type: GET_FILTERDIET, payload: Apidata.data });
-  }
- 
+    const Apidata = await axios.get(`${URL}/recipes/filter?dietName=${diets}`);
+    dispatch({ type: GET_FILTERDIET, payload: Apidata.data });
+  };
 };
 
 export const recipesOrder = () => {
   return async function (dispatch) {
-    const  data = await axios.get(`${URL}/recipes`);
-    dispatch ({ type: GET_DIETFILTER, payload: data });
-  }
- 
+    const data = await axios.get(`${URL}/recipes`);
+    dispatch({ type: GET_DIETFILTER, payload: data });
+  };
 };
 
-export function orderByAZ() {
-  return {
-    type: ORDER_AZ,
+export const getByOrder = (element) => {
+  console.log(element)
+  if (element === "more") {
+    return {
+      type: ORDER_HEALTHSCORE_ASC,
+    };
   };
-}
-
-export function orderByZA() {
-  return {
-    type: ORDER_ZA,
+  if (element === "less") {
+    return {
+      type: ORDER_HEALTHSCORE_DESC,
+    };
   };
-}
-
-export function orderHealthScoreAsc() {
-  return {
-    type: ORDER_HEALTHSCORE_ASC,
-  };
-}
-
-export function orderHealthScoreDesc() {
-  return {
-    type: ORDER_HEALTHSCORE_DESC,
-  };
-}
+};
 
 export function filterDiets(payload) {
   //console.log(payload,"payload");

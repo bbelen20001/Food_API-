@@ -88,24 +88,26 @@ const rootReducer = (state = initialState, actions) => {
    
 
     case ORDER_HEALTHSCORE_ASC:
-      let resultAsc = state.recipes.sort(function (a, b) {
+      let resultAsc = state.recipes.slice().sort(function (a, b) {
         if (a.healthScore > b.healthScore) return 1;
         if (a.healthScore < b.healthScore) return -1;
         return 0;
       });
+      console.log(resultAsc)
       return {
         ...state,
-        recipe: resultAsc,
+        recipes: resultAsc,
+
       };
     case ORDER_HEALTHSCORE_DESC:
-      let resultDesc = state.recipe.sort(function (a, b) {
+      let resultDesc = state.recipes.slice().sort(function (a, b) {
         if (a.healthScore > b.healthScore) return -1;
         if (a.healthScore < b.healthScore) return 1;
         return 0;
       });
       return {
         ...state,
-        recipe: resultDesc,
+        recipes: resultDesc,
       };
 
 
