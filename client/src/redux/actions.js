@@ -20,6 +20,7 @@ export const GET_LOADING = "GET_LOADING";
 export const  GET_FILTERDIET=  "GET_FILTERDIET";
 export const GET_DIETFILTER="GET_DIETFILTER"
 export const FILTER_BY_CREATOR="FILTER_BY_CREATOR"
+export const GET_RECIPE_NAMES= "GET_RECIPE_NAMES";
 const URL = "http://localhost:3001";
 //Promises:
 
@@ -39,7 +40,6 @@ export const getRecipesName = (name) => {
     dispatch({ type: GET_RECIPES, payload: apiData.data });
   };
 };
-
 export const getRecipeId = (id) => {
   return async function (dispatch) {
     try {
@@ -49,6 +49,19 @@ export const getRecipeId = (id) => {
     } catch (error) {
       console.log(error);
       // handle error here
+    }
+  };
+};
+
+export const getOrder = (name) => {
+  console.log(name)
+  return async function (dispatch) {
+    try {
+      const response = await axios.get(`${URL}/recipes/${name}`);
+      const data = response.data;
+      console.log(data)
+      dispatch({ type: GET_RECIPE_NAMES, payload: data });
+    } catch (error) {
     }
   };
 };

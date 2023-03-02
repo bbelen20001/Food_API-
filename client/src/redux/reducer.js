@@ -5,8 +5,6 @@ import {
   GET_RECIPE_ID,
   GET_LOADING,
   CREATE_RECIPE,
-  ORDER_AZ,
-  ORDER_ZA,
   ORDER_HEALTHSCORE_ASC,
   ORDER_HEALTHSCORE_DESC,
   CLEAR,
@@ -16,6 +14,7 @@ import {
   GET_FILTER,
   ORDERED_RECIPES,
   FILTER_BY_CREATOR,
+  GET_RECIPE_NAMES,
 } from "./actions";
 
 const initialState = {
@@ -81,26 +80,12 @@ const rootReducer = (state = initialState, actions) => {
       return {
         ...state,
       };
-    case ORDER_AZ:
-      let resultAZ = state.recipes.sort(function (a, b) {
-        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-        return 0;
-      });
-      return {
-        ...state,
-        recipe: resultAZ,
-      };
-    case ORDER_ZA:
-      let resultZA = state.recipes.sort(function (a, b) {
-        if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
-        if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
-        return 0;
-      });
-      return {
-        ...state,
-        recipe: resultZA,
-      };
+   case GET_RECIPE_NAMES:
+    return{
+      ...state,
+      recipes: actions.payload
+    }
+   
 
     case ORDER_HEALTHSCORE_ASC:
       let resultAsc = state.recipes.sort(function (a, b) {
@@ -166,7 +151,7 @@ case  GET_DIETFILTER:
         ...state,
         loading: actions.payload,
       };
-
+    
     case GET_FILTER:
       return {
         ...state,

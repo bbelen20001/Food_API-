@@ -102,7 +102,25 @@ const getRecipesByDiet = async (dietName)=>{
 
   return filteredRecipes
 }
-
+const getOrdenAsc = async()=>{
+  const allAsc =await getAllRecipes();
+  allAsc.sort((a, b) => {
+    if (a.title < b.title) return -1;
+    if (a.title > b.title) return 1;
+    return 0;
+  });
+  return allAsc
+}
+//---------------------------------------
+const getOrdenDsc= async()=>{
+  const allDesc =await getAllRecipes();
+  allDesc.sort((a, b) => {
+    if (a.title < b.title) return 1;
+    if (a.title > b.title) return -1;
+    return 0;
+  });
+  return allDesc
+}
 
 
 module.exports = {
@@ -110,7 +128,9 @@ module.exports = {
   getDbInfo,
   getAllRecipes,
   getOneHandler,
-  getRecipesByDiet
+  getRecipesByDiet,
+  getOrdenAsc,
+  getOrdenDsc,
 };
 
 

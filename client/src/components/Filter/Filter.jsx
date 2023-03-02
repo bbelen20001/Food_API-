@@ -6,7 +6,8 @@ import {
     orderByAZ,
     filterDiet,
   clearDetail,
-  filterByCreator
+  filterByCreator,
+  getOrder,
   
 } from "../../redux/actions";
 
@@ -89,7 +90,7 @@ const Filters = () => {
           <h4 className={styles.label}>Order by</h4>
           <div className={styles.divs}>
             <select
-              onChange={order}
+              onChange={(e)=>dispatch(getOrder(e.target.value))}
               value={selectOrder}
               className={styles.input}
             >

@@ -2,6 +2,8 @@ const {
   getAllRecipes,
   getOneHandler,
   getRecipesByDiet,
+  getOrdenAsc,
+  getOrdenDsc,
 } = require("../controllers/recipeControllers.js");
 const { createRecip } = require ("../controllers/CreateRecipe");
 
@@ -57,11 +59,29 @@ const searchRecipes = async (req, res) => {
   }
 
   }
+  const filterAsc = async(req,res)=>{
+    try{
+      const filterAs= await  getOrdenAsc ();
+      res.status(200).json(filterAs);
+    }catch(error){
+      res.status(404).json({ error: error.message });
+     }
+  }
+  const filterDesc= async(req,res)=>{
+    try{
+      const filterDes = await  getOrdenDsc ();
+      res.status(200).json(filterDes);
+    }catch(error){
+      res.status(404).json({ error: error.message });
+     }
+  }
  
 
 module.exports = {
   searchRecipes,
   createRecipes,
   searchOne,
-  filterByDiets
+  filterByDiets,
+  filterAsc,
+  filterDesc,
 };

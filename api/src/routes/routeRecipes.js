@@ -4,7 +4,9 @@ const {
  // recipeId,
  createRecipes,
  searchOne,
- filterByDiets
+ filterByDiets,
+ filterAsc,
+ filterDesc,
 } = require("../handlers/handlersRecipes.js");
 
 const validate = (req, res, next) => {
@@ -22,7 +24,10 @@ recipesRoute.get("/", searchRecipes);
 recipesRoute.post("/createRecipe", validate, createRecipes);
 //recipesRoute.get("/searchId/:id", recipeId);
 recipesRoute.get("/getone/:id", searchOne);
-recipesRoute.get("/filter",filterByDiets)
+//--------------------------------------------------------------------------------------------------
+recipesRoute.get("/filter",filterByDiets);
+recipesRoute.get("/asc",filterAsc);
+recipesRoute.get("/desc",filterDesc);
 
 
 module.exports = recipesRoute;
