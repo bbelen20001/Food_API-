@@ -21,7 +21,7 @@ export const GET_FILTERDIET = "GET_FILTERDIET";
 export const GET_DIETFILTER = "GET_DIETFILTER";
 export const FILTER_BY_CREATOR = "FILTER_BY_CREATOR";
 export const GET_RECIPE_NAMES = "GET_RECIPE_NAMES";
-const URL = "http://localhost:3001";
+const URL = "https://foodhenry.onrender.com";
 //Promises:
 
 export const getRecipes = () => {

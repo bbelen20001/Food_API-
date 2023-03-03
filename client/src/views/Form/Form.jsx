@@ -34,7 +34,7 @@ const Form = ()=>{
     if (!form.name) delete form.name;
     if (!form.description) delete form.description;
     axios
-      .post(`http://localhost:3001/recipes/createRecipe`, form)
+      .post(`https://foodhenry.onrender.com/recipes/createRecipe`, form)
       .then((res) => alert(res.data))
       .catch((err) => alert(err.response.data.error));
     //clean form
